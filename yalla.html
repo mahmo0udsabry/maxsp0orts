@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ad-free Stream</title>
+  <style>
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="live-stream" src="https://live24.yalla-shoot-tv.biz/chtv/ch1.php" frameborder="0" allowfullscreen></iframe>
+
+  <script>
+    // Script to attempt to block ads and popups
+    document.getElementById('live-stream').onload = function() {
+      const iframe = document.getElementById('live-stream').contentWindow;
+      // Attempt to block common ad classes and IDs
+      const adSelectors = ['.ad', '#ad', '[id^="ad"]', '[class*="ad"]', '[href*="ad"]'];
+      adSelectors.forEach(selector => {
+        let ads = iframe.document.querySelectorAll(selector);
+        ads.forEach(ad => ad.style.display = 'none');
+      });
+
+      // Prevent redirections and popups
+      iframe.document.onclick = function(event) {
+        event.stopPropagation();
+      };
+    };
+  </script>
+</body>
+</html>
