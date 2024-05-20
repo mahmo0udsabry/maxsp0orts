@@ -11,9 +11,10 @@
       border: none;
     }
   </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; frame-ancestors 'none';">
 </head>
 <body>
-  <iframe id="live-stream" src="https://live24.yalla-shoot-tv.biz/chtv/ch1.php" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin"></iframe>
+  <iframe id="live-stream" src="https://live24.yalla-shoot-tv.biz/chtv/ch1.php" frameborder="0" scrolling="no" allowfullscreen sandbox="allow-scripts allow-same-origin"></iframe>
 
   <script>
     document.getElementById('live-stream').onload = function() {
