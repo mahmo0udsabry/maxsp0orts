@@ -13,14 +13,14 @@
 </head>
 <body>
     <!-- تضمين iFrame مع رابط الفيديو -->
-    <iframe id="playerFrame" src="https://v3.sportsonline.si/channels/hd/hd11.php" allow="autoplay" sandbox="allow-forms allow-same-origin allow-scripts"  scrolling="no" allowfullscreen="true" onload="removeAdsAndUnmute()"></iframe>
+    <iframe id="playerFrame" src="https://new.myball.online/hembedplayer/syria2/4/500/400" allow="autoplay" onload="removeAdsAndUnmute()"></iframe>
     
     <script>
         function removeAdsAndUnmute() {
             var iframe = document.getElementById('playerFrame').contentWindow;
 
             // الانتظار حتى يتم تحميل محتوى iFrame
-            iframe.addEventListener('load', function() {
+            iframe.addEventListener('DOMContentLoaded', function() {
                 try {
                     // إخفاء الإعلانات
                     var ads = iframe.document.querySelectorAll('.ads, .ad-banner, .popup, .ad-container');
