@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>مشغل فيديو بدون إعلانات وبدون وضع صامت</title>
+    <style>
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- تضمين iFrame مع رابط الفيديو -->
+    <iframe id="playerFrame" src="https://new.myball.online/hembedplayer/syria2/4/500/400" allow="autoplay" onload="removeAdsAndUnmute()"></iframe>
+    
+    <script>
+        function removeAdsAndUnmute() {
+            var iframe = document.getElementById('playerFrame').contentWindow;
+
+            iframe.addEventListener('load', function() {
+                try {
+                    // إخفاء الإعلانات
+                    var ads = iframe.document.querySelectorAll('.ads, .ad-banner, .popup, .ad-container');
+                    ads.forEach(function(ad) {
+                        ad.style.display = 'none';
+                    });
+
+                    // تعطيل الوضع الصامت وتشغيل الفيديو
+                    var video = iframe.document.querySelector('video');
+                    if (video) {
+                        video.muted = false;
+                        video.volume = 1.0;
+                        video.play();
+                    }
+                } catch (error) {
+                    console.error('خطأ في إزالة الإعلانات أو تعطيل الوضع الصامت:', error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
