@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>مشغل فيديو بدون إعلانات</title>
+    <title>مشغل فيديو بدون إعلانات وبدون وضع صامت</title>
     <style>
-        /* تحديد حجم الـ iFrame وتخصيص الأنماط */
+        /* تخصيص حجم الإطار وإزالة الحدود */
         iframe {
             width: 100%;
             height: 500px;
@@ -12,22 +12,34 @@
     </style>
 </head>
 <body>
-    <!-- تضمين الـ iFrame مع رابط الفيديو -->
-    <iframe id="playerFrame" src="https://new.myball.online/hembedplayer/syria2/4/500/400" sandbox="allow-forms allow-same-origin allow-scripts" allowfullscreen="true" onload="removeAds()"></iframe>
+    <!-- تضمين iFrame مع رابط الفيديو -->
+    <iframe id="playerFrame" src="https://new.myball.online/hembedplayer/syria2/4/500/400" allow="autoplay" sandbox="allow-forms allow-same-origin allow-scripts"  allowfullscreen="true" onload="removeAdsAndUnmute()"></iframe>
     
     <script>
-        function removeAds() {
+        function removeAdsAndUnmute() {
             var iframe = document.getElementById('playerFrame').contentWindow;
-            
-            // انتظر حتى يتم تحميل محتوى الـ iFrame
+
+            // الانتظار حتى يتم تحميل محتوى iFrame
             iframe.addEventListener('load', function() {
                 try {
+                    // إخفاء الإعلانات
                     var ads = iframe.document.querySelectorAll('.ads, .ad-banner, .popup, .ad-container');
                     ads.forEach(function(ad) {
-                        ad.style.display = 'none'; // إخفاء الإعلانات
+                        ad.style.display = 'none';
                     });
+
+                    // البحث عن عنصر الفيديو في iFrame
+                    var video = iframe.document.querySelector('video');
+                    if (video) {
+                        // إلغاء كتم الصوت
+                        video.muted = false;
+                        // تعيين مستوى الصوت إلى 100%
+                        video.volume = 1.0;
+                        // تشغيل الفيديو تلقائياً
+                        video.play();
+                    }
                 } catch (error) {
-                    console.error('Error removing ads:', error);
+                    console.error('Error removing ads or unmuting:', error);
                 }
             });
         }
