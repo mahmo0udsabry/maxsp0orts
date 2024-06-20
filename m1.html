@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>مشغل فيديو بدون إعلانات وبدون وضع صامت</title>
+    <style>
+        /* تخصيص حجم الإطار وإزالة الحدود */
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- تضمين iFrame مع رابط الفيديو -->
+    <iframe id="playerFrame" src="https://v3.sportsonline.si/channels/hd/hd11.php" allow="autoplay" sandbox="allow-forms allow-same-origin allow-scripts"  allowfullscreen="true" onload="removeAdsAndUnmute()"></iframe>
+    
+    <script>
+        function removeAdsAndUnmute() {
+            var iframe = document.getElementById('playerFrame').contentWindow;
+
+            // الانتظار حتى يتم تحميل محتوى iFrame
+            iframe.addEventListener('load', function() {
+                try {
+                    // إخفاء الإعلانات
+                    var ads = iframe.document.querySelectorAll('.ads, .ad-banner, .popup, .ad-container');
+                    ads.forEach(function(ad) {
+                        ad.style.display = 'none';
+                    });
+
+                    // البحث عن عنصر الفيديو في iFrame
+                    var video = iframe.document.querySelector('video');
+                    if (video) {
+                        // إلغاء كتم الصوت
+                        video.muted = false;
+                        // تعيين مستوى الصوت إلى 100%
+                        video.volume = 1.0;
+                        // تشغيل الفيديو تلقائياً
+                        video.play();
+                    }
+                } catch (error) {
+                    console.error('Error removing ads or unmuting:', error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
