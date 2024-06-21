@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض iframe بناءً على نوع الجهاز</title>
+    <style>
+        .iframe-container {
+            display: none; /* إخفاء جميع الـ<iframe> في البداية */
+        }
+    </style>
+    <script>
+        // دالة لتحديد نوع الجهاز
+        function getDeviceType() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/iPhone|iPad/i.test(userAgent)) {
+                return 'Apple';
+            }
+
+            return 'other';
+        }
+
+        // دالة لعرض iframe بناءً على نوع الجهاز
+        function displayIframeBasedOnDevice() {
+            const deviceType = getDeviceType();
+            
+            // إظهار الـ<iframe> المناسب
+            if (deviceType === 'Apple') {
+                document.getElementById('iframe-apple').style.display = 'block';
+            } else {
+                document.getElementById('iframe-other').style.display = 'block';
+            }
+        }
+
+        // تنفيذ الدالة عند تحميل الصفحة
+        window.onload = displayIframeBasedOnDevice;
+    </script>
+</head>
+<body>
+    <!-- iframe لأجهزة Apple (iPhone و iPad) -->
+    <div id="iframe-apple" class="iframe-container">
+        <iframe 
+            allowfullscreen 
+            class="cf" 
+            frameborder="0" 
+            height="500px" 
+            name="search_iframe" 
+            rel="nofollow" 
+            sandbox="allow-forms allow-same-origin allow-scripts" 
+            scrolling="no" 
+            src="https://1stream.eu/soccer/slovakia-ukraine-live-stream/1417309?embed=1" 
+            width="100%">
+        </iframe>
+    </div>
+
+    <!-- iframe لبقية الأجهزة -->
+    <div id="iframe-other" class="iframe-container">
+        <iframe 
+            src="https://cnn-arbic.blogspot.com/p/p.html?m=1&amp;id=BBC1_ENG" 
+            height="100%" 
+            width="100%" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen="" 
+            frameborder="0" 
+            scrolling="no" 
+            seamless="" 
+            style="-webkit-text-size-adjust: auto;">
+        </iframe>
+    </div>
+</body>
+</html>
