@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta content="no-referrer" name="referrer"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل فيديو HLS</title>
+    <!-- إضافة مكتبة Video.js -->
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
+    <!-- إضافة مكتبة HLS.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        /* بعض التنسيقات لمشغل الفيديو */
+        .video-js {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <!-- مشغل الفيديو -->
+        <video id="videojs-player" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%"></video>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var videoElement = document.getElementById('videojs-player');
+            
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource('https://cdn.footballii.ir/hls2/bein1.m3u8');
+                hls.attachMedia(videoElement);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    videoElement.play();
+                });
+            } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+                videoElement.src = 'https://cdn.footballii.ir/hls2/bein1.m3u8';
+                videoElement.addEventListener('loadedmetadata', function() {
+                    videoElement.play();
+                });
+            }
+        });
+    </script>
+
+    <!-- إضافة مكتبة Video.js في نهاية الصفحة لتحسين سرعة التحميل -->
+    <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
+</body>
+</html>
