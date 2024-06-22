@@ -3,24 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل فيديو HLS سريع التحميل</title>
+    <title>مشغل فيديو HLS</title>
     <!-- إضافة مكتبة Video.js -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.15.4/video-js.min.css" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
     <!-- إضافة مكتبة HLS.js -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4"></script>
-    <!-- تحسينات التحميل السريع -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .video-container {
-            width: 100%;
-            max-width: 640px;
-        }
+        /* بعض التنسيقات لمشغل الفيديو */
         .video-js {
             width: 100%;
             height: auto;
@@ -30,7 +19,7 @@
 <body>
     <div class="video-container">
         <!-- مشغل الفيديو -->
-        <video id="videojs-player" class="video-js vjs-default-skin" controls preload="auto"></video>
+        <video id="videojs-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360"></video>
     </div>
 
     <script>
@@ -54,6 +43,6 @@
     </script>
 
     <!-- إضافة مكتبة Video.js في نهاية الصفحة لتحسين سرعة التحميل -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.15.4/video.min.js"></script>
+    <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
 </body>
 </html>
