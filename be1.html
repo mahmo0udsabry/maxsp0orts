@@ -54,13 +54,13 @@
             
             if (Hls.isSupported()) {
                 var hls = new Hls();
-                hls.loadSource('https://live-ak.vimeocdn.com/exp=1719069497~acl=%2Ff7b6032e-6dd3-4661-8b03-4272fec1d267_fmp4%2F%2A~hmac=0b34dcd560bcebaaf076938026fd006fb3d62f638167bc92e53d4e15c711eb2a/f7b6032e-6dd3-4661-8b03-4272fec1d267_fmp4/hls.m3u8');
+                hls.loadSource('https://cdn.footballii.ir/hls2/bein1.m3u8');
                 hls.attachMedia(videoElement);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
                     videoElement.play();
                 });
             } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-                videoElement.src = 'https://live-ak.vimeocdn.com/exp=1719069497~acl=%2Ff7b6032e-6dd3-4661-8b03-4272fec1d267_fmp4%2F%2A~hmac=0b34dcd560bcebaaf076938026fd006fb3d62f638167bc92e53d4e15c711eb2a/f7b6032e-6dd3-4661-8b03-4272fec1d267_fmp4/hls.m3u8';
+                videoElement.src = 'https://cdn.footballii.ir/hls2/bein1.m3u8';
                 videoElement.addEventListener('loadedmetadata', function() {
                     videoElement.play();
                 });
