@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Without Ads</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="iframe" src="https://v3.sportsonline.si/channels/hd/hd9.php" sandbox="allow-scripts allow-same-origin"></iframe>
+
+    <script>
+        function removeAds() {
+            const iframe = document.getElementById('iframe');
+            iframe.onload = function() {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const adSelectors = ['.ad', '#ads', '.advertisement', '.popup', '.overlay', '[id^="google_ads"]'];
+
+                adSelectors.forEach(selector => {
+                    const ads = iframeDocument.querySelectorAll(selector);
+                    ads.forEach(ad => ad.remove());
+                });
+
+                setTimeout(removeAds, 1000);
+            };
+        }
+        removeAds();
+    </script>
+</body>
+</html>
