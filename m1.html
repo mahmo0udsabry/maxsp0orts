@@ -1,48 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>مشغل فيديو بدون إعلانات وبدون وضع صامت</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Without Ads</title>
     <style>
-        /* تخصيص حجم الإطار وإزالة الحدود */
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
         iframe {
             width: 100%;
-            height: 500px;
+            height: 100vh;
             border: none;
         }
     </style>
 </head>
 <body>
-    <!-- تضمين iFrame مع رابط الفيديو -->
-    <iframe id="playerFrame" src="https://href.li/?https://sportsonline.si/channels/hd/hd11.php" allowfullscreen="true" sandbox="allow-same-origin allow-scripts" scrolling="no" style="width: 100%;height: 500px;border: 0px none;" onload="removeAdsAndUnmute()"></iframe>
+    <iframe id="iframe" src="https://sportsonline.si/channels/hd/hd11.php" sandbox="allow-scripts allow-same-origin"></iframe>
 
     <script>
-        function removeAdsAndUnmute() {
-            var iframe = document.getElementById('playerFrame').contentWindow;
+        function removeAds() {
+            const iframe = document.getElementById('iframe');
+            iframe.onload = function() {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const adSelectors = ['.ad', '#ads', '.advertisement', '.popup', '.overlay', '[id^="google_ads"]'];
 
-            // الانتظار حتى يتم تحميل محتوى iFrame
-            iframe.addEventListener('DOMContentLoaded', function() {
-                try {
-                    // إخفاء الإعلانات
-                    var ads = iframe.document.querySelectorAll('.ads, .ad-banner, .popup, .ad-container');
-                    ads.forEach(function(ad) {
-                        ad.style.display = 'none';
-                    });
+                adSelectors.forEach(selector => {
+                    const ads = iframeDocument.querySelectorAll(selector);
+                    ads.forEach(ad => ad.remove());
+                });
 
-                    // البحث عن عنصر الفيديو في iFrame
-                    var video = iframe.document.querySelector('video');
-                    if (video) {
-                        // إلغاء كتم الصوت
-                        video.muted = false;
-                        // تعيين مستوى الصوت إلى 100%
-                        video.volume = 1.0;
-                        // تشغيل الفيديو تلقائياً
-                        video.play();
-                    }
-                } catch (error) {
-                    console.error('Error removing ads or unmuting:', error);
-                }
-            });
+                setTimeout(removeAds, 1000);
+            };
         }
+        removeAds();
     </script>
 </body>
 </html>
