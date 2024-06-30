@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad-Free Stream</title>
+    <style>
+        /* إخفاء الإعلانات المعروفة */
+        .ads, .ad-banner, .ad-container, iframe[src*="ads"], script[src*="ads"] {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="streamFrame" src="https://1stream.eu/soccer/jamaica-venezuela-live-stream/1421437?embed=1" width="800" height="600" frameborder="0" sandbox="allow-scripts allow-same-origin"></iframe>
+    
+    <script>
+        // إزالة العناصر التي تحتوي على إعلانات
+        function removeAds() {
+            const adSelectors = ['.ads', '.ad-banner', '.ad-container', 'iframe[src*="ads"]', 'script[src*="ads"]'];
+            adSelectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(ad => ad.remove());
+            });
+        }
+
+        // محاولة مستمرة لإزالة الإعلانات
+        const adRemovalInterval = setInterval(() => {
+            removeAds();
+        }, 1000);
+
+        // إيقاف المحاولة بعد 30 ثانية
+        setTimeout(() => {
+            clearInterval(adRemovalInterval);
+        }, 30000);
+
+        // إزالة الإعلانات من محتوى iframe
+        document.getElementById('streamFrame').onload = function() {
+            const iframe = document.getElementById('streamFrame').contentWindow;
+            const iframeInterval = setInterval(() => {
+                iframe.document.querySelectorAll(adSelectors.join(', ')).forEach(ad => ad.remove());
+            }, 1000);
+            setTimeout(() => clearInterval(iframeInterval), 30000);
+        };
+    </script>
+</body>
+</html>
