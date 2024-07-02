@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل Clappr</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+        #player {
+            width: 80%;
+            height: 80%;
+            max-width: 100%;
+            max-height: 100%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const streamUrl = urlParams.get('src') || 'https://example.com/stream.m3u8';
+
+        if (streamUrl) {
+            const player = new Clappr.Player({
+                source: streamUrl,
+                parentId: '#player',
+                width: '100%',
+                height: '100%',
+                autoPlay: true,
+                mute: false,
+                mediacontrol: { seekbar: "#FFF", buttons: "#FFF" },
+            });
+        } else {
+            alert("الرجاء توفير رابط البث باستخدام متغير 'src' في الـ URL.");
+        }
+    </script>
+</body>
+</html>
