@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل Shaka Player</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+        #player-container {
+            width: 80%;
+            height: 80%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="player-container">
+        <video id="videoPlayer" controls></video>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const videoElement = document.getElementById('videoPlayer');
+            const urlParams = new URLSearchParams(window.location.search);
+            const streamUrl = urlParams.get('src') || 'https://example.com/stream.m3u8';
+
+            if (shaka.Player.isBrowserSupported()) {
+                const player = new shaka.Player(videoElement);
+                player.addEventListener('error', event => {
+                    console.error('Error code', event.detail.code, 'object', event.detail);
+                });
+
+                try {
+                    await player.load(streamUrl);
+                    videoElement.play();
+                } catch (e) {
+                    console.error('Error loading video', e);
+                }
+            } else {
+                console.error('Browser not supported!');
+                alert('المتصفح الخاص بك لا يدعم مشغل Shaka Player.');
+            }
+        });
+    </script>
+</body>
+</html>
