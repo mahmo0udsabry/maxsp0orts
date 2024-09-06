@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Fullscreen HLS Stream with Video.js</title>
+  <!-- إضافة ملفات CSS الخاصة بمكتبة Video.js -->
+  <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+  <style>
+    /* لجعل الفيديو يشغل الشاشة بالكامل */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+    }
+    
+    /* ضبط الفيديو ليملأ الشاشة بالكامل مع الحفاظ على النسب */
+    #my-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* لملء الشاشة بشكل مناسب مع الحفاظ على النسب */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- عنصر الفيديو الخاص بمشغل Video.js -->
+  <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" data-setup='{}'>
+    متصفحك لا يدعم تشغيل الفيديو.
+  </video>
+
+  <!-- إضافة ملفات JavaScript الخاصة بمكتبة Video.js -->
+  <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+
+  <!-- تهيئة مشغل الفيديو مع رابط m3u8 -->
+  <script>
+    // استخراج رابط m3u8 من المعاملات في الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+    const streamUrl = urlParams.get('stream');
+
+    if (streamUrl) {
+      var player = videojs('my-video');
+      player.src({
+        src: streamUrl,
+        type: 'application/x-mpegURL'
+      });
+    } else {
+      alert("No stream URL provided!");
+    }
+  </script>
+
+</body>
+</html>
