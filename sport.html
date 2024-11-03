@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل فيديو</title>
+    <link href="https://cdn.plyr.io/3.7.2/plyr.css" rel="stylesheet">
+    <style>
+        :root {
+            --plyr-video-control-background-hover: rgba(156, 136, 255, .9);
+            --plyr-color-main: #9c88ff;
+        }
+        body {
+            margin: 0;
+            background: #000;
+            font-family: sans-serif;
+        }
+        .Player {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="player-container">
+    <video class="Player" controls crossorigin playsinline></video>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js"></script>
+<script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+<script type="text/javascript">
+    function getUrlVars() {
+        var vars = {};
+        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+            vars[key] = decodeURIComponent(value);
+        });
+        return vars;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const source = getUrlVars()["src"];
+        const video = document.querySelector('.Player');
+
+        if (source) {
+            const player = new Plyr(video, {
+                captions: { active: true, update: true, language: 'en' },
+            });
+
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(source);
+                hls.attachMedia(video);
+                window.hls = hls;
+            } else {
+                video.src = source;
+            }
+
+            window.player = player;
+        } else {
+            console.warn("لم يتم توفير رابط البث. تأكد من تضمين متغير src في عنوان الرابط.");
+        }
+    });
+</script>
+
+</body>
+</html>
