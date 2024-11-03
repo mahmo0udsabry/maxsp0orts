@@ -1,69 +1,79 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل فيديو</title>
-    <link href="https://cdn.plyr.io/3.7.2/plyr.css" rel="stylesheet">
-    <style>
-        :root {
-            --plyr-video-control-background-hover: rgba(156, 136, 255, .9);
-            --plyr-color-main: #9c88ff;
-        }
-        body {
-            margin: 0;
-            background: #000;
-            font-family: sans-serif;
-        }
-        .Player {
-            width: 100%;
-            height: 100vh;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>مشغل فيديو</title>
+  <link href="https://cdn.plyr.io/3.7.2/plyr.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --plyr-video-control-background-hover: rgba(156,136,255,.9);
+      --plyr-color-main: #9c88ff;
+    }
+    body {
+      background: #000;
+      font-family: sans-serif;
+      margin: 0;
+    }
+    #player {
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .custom-btn {
+      background: #552a86;
+      color: #fff;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-block;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
 <div id="player-container">
-    <video class="Player" controls crossorigin playsinline></video>
+  <video class="Player" controls crossorigin playsinline></video>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
 <script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', () => {
+    // استخراج رابط الفيديو من عنوان URL
     function getUrlVars() {
-        var vars = {};
-        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
-            vars[key] = decodeURIComponent(value);
-        });
-        return vars;
+      let vars = {};
+      window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+        vars[key] = decodeURIComponent(value);
+      });
+      return vars;
     }
+    const link = getUrlVars()["src"];
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const source = getUrlVars()["src"];
-        const video = document.querySelector('.Player');
-
-        if (source) {
-            const player = new Plyr(video, {
-                captions: { active: true, update: true, language: 'en' },
-            });
-
-            if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource(source);
-                hls.attachMedia(video);
-                window.hls = hls;
-            } else {
-                video.src = source;
-            }
-
-            window.player = player;
-        } else {
-            console.warn("لم يتم توفير رابط البث. تأكد من تضمين متغير src في عنوان الرابط.");
-        }
+    const video = document.querySelector('.Player');
+    const player = new Plyr(video, {
+      captions: { active: true, update: true, language: 'ar' }
     });
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(link);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play();
+      });
+      window.hls = hls;
+    } else {
+      video.src = link;
+      video.addEventListener('loadedmetadata', () => {
+        video.play();
+      });
+    }
+    window.player = player;
+  });
 </script>
 
 </body>
