@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <title>مشغل الفيديو</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.2/hls.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<video autoplay controls id="video" referrerpolicy="strict-origin" preload="metadata" poster="https://raw.githubusercontent.com/roflix/x/main/footyynet.png"></video>
+
+<script>
+  function getVideoSrc() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('src');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const videoSrc = getVideoSrc();
+    const video = document.getElementById('video');
+
+    if (videoSrc) {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          video.play();
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+        video.addEventListener('loadedmetadata', function() {
+          video.play();
+        });
+      }
+    } else {
+      alert("No video source provided in URL (use ?src=YOUR_VIDEO_URL.m3u8)");
+    }
+  });
+</script>
+
+</body>
+</html>
