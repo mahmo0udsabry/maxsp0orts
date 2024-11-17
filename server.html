@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +44,7 @@
             font-size: 16px;
             flex: 1; /* يجعل الأزرار تمتد بالتساوي عبر عرض الفريم */
             min-width: 150px; /* الحد الأدنى لعرض الزر */
+            max-width: 200px; /* الحد الأقصى لعرض الزر */
         }
 
         .button:hover {
@@ -76,6 +77,19 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+        /* استعلامات الوسائط لضبط الأزرار على الهواتف */
+        @media (max-width: 768px) {
+            .button {
+                font-size: 14px; /* تقليل حجم الخط */
+                min-width: 120px; /* تقليل الحد الأدنى لعرض الأزرار */
+                max-width: 150px; /* تقليل الحد الأقصى لعرض الأزرار */
+            }
+
+            .refresh-button {
+                font-size: 14px; /* تقليل حجم الخط في زر التحديث */
+            }
         }
     </style>
 </head>
