@@ -15,27 +15,19 @@
 
         .container {
             width: 100%;
-            height: 500px; /* الطول المطلوب */
+            height: 500px; /* الطول المحدد */
+            position: relative; /* لتحديد موضع العناصر العائمة */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
         }
 
-        .header {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #1a1a1a; /* لون الرأس */
-            padding: 10px 20px;
-        }
-
         .buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-bottom: 10px;
+            margin: 10px 0;
         }
 
         .button {
@@ -56,8 +48,17 @@
 
         .refresh-button {
             background-color: #e74c3c;
-            position: relative;
-            align-self: flex-end;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute; /* لتكون عائمة */
+            top: 10px;
+            right: 10px;
+            z-index: 10; /* فوق كل العناصر */
+            transition: background-color 0.3s ease;
         }
 
         .refresh-button:hover {
@@ -66,8 +67,7 @@
 
         .iframe-container {
             width: 100%;
-            flex: 1; /* باقي المساحة */
-            margin-top: 10px;
+            flex: 1;
         }
 
         iframe {
@@ -79,18 +79,17 @@
 </head>
 <body>
     <div class="container">
-        <!-- الرأس -->
-        <div class="header">
-            <!-- أزرار المشغلات -->
-            <div class="buttons">
-                <button class="button" onclick="changeFrame('https://mahmo0udsabry.github.io/maxsp0orts/1.html')">مشغل 1</button>
-                <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame2.html')">مشغل 2</button>
-                <button class="button" onclick="changeFrame('https://mahmo0udsabry.github.io/maxsp0orts/1.html')">مشغل 3</button>
-                <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame4.html')">مشغل 4</button>
-            </div>
-            <!-- زر التحديث -->
-            <button class="button refresh-button" onclick="location.reload()">تحديث</button>
+        <!-- زر التحديث العائم -->
+        <button class="refresh-button" onclick="location.reload()">تحديث</button>
+
+        <!-- أزرار المشغلات -->
+        <div class="buttons">
+            <button class="button" onclick="changeFrame('https://mahmo0udsabry.github.io/maxsp0orts/1.html')">مشغل 1</button>
+            <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame2.html')">مشغل 2</button>
+            <button class="button" onclick="changeFrame('https://mahmo0udsabry.github.io/maxsp0orts/1.html')">مشغل 3</button>
+            <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame4.html')">مشغل 4</button>
         </div>
+
         <!-- إطار العرض -->
         <div class="iframe-container">
             <iframe id="mainFrame" src="https://mahmo0udsabry.github.io/maxsp0orts/1.html"></iframe>
