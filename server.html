@@ -1,106 +1,125 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>on time sport 1</title>
-    <link rel="icon" type="image/x-icon" href=""/>
-    <link href="https://mahmo0udsabry.github.io/maxsp0orts/stylesheet.css" rel="stylesheet">
+    <title>مشغلات</title>
     <style>
-        /* تنسيق شريط التنقل */
-        .aplr-menu {
-            display: flex;
-            justify-content: space-around;
-            background-color: #333;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 10px 0;
+        body {
             margin: 0;
+            padding: 0;
+            background-color: #000; /* خلفية سوداء */
+            color: #fff; /* نص أبيض */
+            font-family: Arial, sans-serif;
         }
 
-        .aplr-menu li {
-            list-style: none;
+        .container {
+            width: 100%;
+            height: 500px; /* الطول المحدد */
+            position: relative; /* لتمكين زر التحديث العائم */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
         }
 
-        .aplr-menu a {
+        .buttons {
+            display: flex;
+            width: 100%;
+            justify-content: flex-start; /* ترتيب الأزرار من الشمال إلى اليمين */
+            gap: 5px; /* مسافة صغيرة بين الأزرار */
+            margin: 0;
+            padding: 5px; /* مسافة داخلية للأزرار */
+            overflow-x: auto; /* إضافة شريط تمرير أفقي */
+            white-space: nowrap; /* منع الأزرار من الانتقال لأسطر جديدة */
+        }
+
+        .button {
+            background-color: #3498db;
             color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            display: block;
-            font-size: 16px;
-        }
-
-        .aplr-menu a:hover, .aplr-menu a.active {
-            background-color: #0076a5;
-        }
-
-        /* إضافة بعض المسافة العلوية للتعويض عن وجود شريط التنقل */
-        .aplr-player-wrapper {
-            margin-top: 60px;
-        }
-
-        .aplr-player-content {
+            padding: 10px 15px;
             text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1 0 150px; /* يجعل الأزرار تأخذ المساحة المتاحة ولكن بحد أدنى */
+            min-width: 120px; /* الحد الأدنى لعرض الزر */
+            max-width: 180px; /* الحد الأقصى لعرض الزر */
+            box-sizing: border-box; /* لضمان أخذ الأزرار المساحة المحددة بشكل صحيح */
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+        }
+
+        .refresh-button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            position: absolute; /* عائم */
+            top: 55px; /* تحت الأزرار مباشرة */
+            right: 10px; /* عائم في الجهة اليمنى */
+        }
+
+        .refresh-button:hover {
+            background-color: #c0392b;
+        }
+
+        .iframe-container {
+            width: 100%;
+            flex: 1;
+            margin-top: 10px; /* مسافة بسيطة فوق الفريم */
         }
 
         iframe {
-            max-width: 100%;
-            height: 378px;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .aplr-exbtns {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
+        /* استعلامات الوسائط لضبط الأزرار على الهواتف */
+        @media (max-width: 768px) {
+            .button {
+                font-size: 14px; /* تقليل حجم الخط */
+                min-width: 100px; /* تقليل الحد الأدنى لعرض الأزرار */
+                max-width: 150px; /* تقليل الحد الأقصى لعرض الأزرار */
+            }
 
-        .aplr-exbtns li {
-            display: inline-block;
-            margin: 0 10px;
-        }
-
-        .aplr-link {
-            text-decoration: none;
-            color: #0076a5;
-        }
-
-        /* إضافة تأثير عند التمرير */
-        .aplr-link:hover {
-            color: #890808;
+            .refresh-button {
+                font-size: 14px; /* تقليل حجم الخط في زر التحديث */
+            }
         }
     </style>
 </head>
 <body>
-    <!-- شريط التنقل الثابت في أعلى الصفحة -->
-    <div class="aplr-player-wrapper">
-        <ul class="aplr-menu">
-            <li><a class="aplr-link active" href="https://mahmo0udsabry.github.io/maxsp0orts/1.html">HD 1</a></li>
-            <li><a class="aplr-link" href="https://mahmo0udsabry.github.io/maxsp0orts/1.html">Mobile 1</a></li>
-            <li><a class="aplr-link" href="https://mahmo0udsabry.github.io/maxsp0orts/1.html">HD 2</a></li>
-            <li><a class="aplr-link" href="https://mahmo0udsabry.github.io/maxsp0orts/1.html">Mobile 2</a></li>
-        </ul>
+    <div class="container">
+        <!-- أزرار المشغلات -->
+        <div class="buttons">
+            <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame1.html')">مشغل 1</button>
+            <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame2.html')">مشغل 2</button>
+            <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame3.html')">مشغل 3</button>
+            <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame4.html')">مشغل 4</button>
+            <!-- يمكنك إضافة المزيد من الأزرار هنا -->
+            <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame5.html')">مشغل 5</button>
+            <!-- المزيد من الأزرار يمكن إضافتها بنفس الطريقة -->
+        </div>
 
-        <!-- محتوى الفيديو -->
-        <div class="aplr-player-content">
-            <div class='video-con embed-responsive'>
-                <iframe src="https://mahmo0udsabry.github.io/maxsp0orts/1.html" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
-            </div>
+        <!-- زر التحديث (عائم فوق الفريمات) -->
+        <button class="refresh-button" onclick="location.reload()">تحديث</button>
 
-            <!-- زر تحديث -->
-            <ul class="aplr-exbtns">
-                <li class="aplr-action showrefresh has-text" id="refresh">
-                    <a href="javascript:window.location.reload()" class="aplr-link">
-                        <span>تحديث</span>
-                    </a>
-                </li>
-            </ul>
+        <!-- إطار العرض -->
+        <div class="iframe-container">
+            <iframe id="mainFrame" src="https://username.github.io/repository-name/frame1.html"></iframe>
         </div>
     </div>
 
     <script>
-        document.addEventListener("contextmenu", function(e) { e.preventDefault() }, false);
+        function changeFrame(url) {
+            document.getElementById('mainFrame').src = url;
+        }
     </script>
 </body>
 </html>
