@@ -16,33 +16,31 @@
         .container {
             width: 100%;
             height: 500px; /* الطول المحدد */
-            position: relative;
+            position: relative; /* لتمكين زر التحديث العائم */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* الأزرار تبدأ من الشمال */
+            justify-content: flex-start;
         }
 
         .buttons {
             display: flex;
-            flex-direction: row; /* ترتيب الأزرار من الشمال إلى اليمين */
             width: 100%;
-            justify-content: space-between;
+            justify-content: flex-start; /* ترتيب الأزرار من الشمال إلى اليمين */
+            gap: 5px; /* مسافة صغيرة بين الأزرار */
             margin: 0;
-            position: absolute;
-            top: 0;
+            padding: 5px; /* مسافة داخلية للأزرار */
         }
 
         .button {
-            flex: 1; /* كل زر يأخذ مساحة متساوية */
             background-color: #3498db;
             color: white;
-            padding: 10px 0;
+            padding: 10px 15px;
             text-align: center;
             border: none;
             cursor: pointer;
             font-size: 16px;
-            border-left: 1px solid #000; /* فاصل بين الأزرار */
-        }
-
-        .button:first-child {
-            border-left: none; /* إزالة الفاصل عن الزر الأول */
+            flex: none; /* لا يتمدد الزر بعرض الإطار */
         }
 
         .button:hover {
@@ -50,16 +48,15 @@
         }
 
         .refresh-button {
-            position: absolute;
-            top: 50px; /* أسفل أزرار المشغلات */
-            right: 10px; /* في الجهة اليمنى */
             background-color: #e74c3c;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 15px;
             font-size: 16px;
             border: none;
             cursor: pointer;
-            text-align: center;
+            position: absolute; /* عائم */
+            top: 55px; /* تحت الأزرار مباشرة */
+            right: 10px; /* عائم في الجهة اليمنى */
         }
 
         .refresh-button:hover {
@@ -68,8 +65,8 @@
 
         .iframe-container {
             width: 100%;
-            height: 100%;
-            margin-top: 90px; /* مسافة تحت الأزرار */
+            flex: 1;
+            margin-top: 10px; /* مسافة بسيطة فوق الفريم */
         }
 
         iframe {
@@ -89,7 +86,7 @@
             <button class="button" onclick="changeFrame('https://username.github.io/repository-name/frame4.html')">مشغل 4</button>
         </div>
 
-        <!-- زر التحديث -->
+        <!-- زر التحديث (عائم فوق الفريمات) -->
         <button class="refresh-button" onclick="location.reload()">تحديث</button>
 
         <!-- إطار العرض -->
