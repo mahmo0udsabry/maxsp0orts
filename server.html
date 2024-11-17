@@ -19,49 +19,52 @@
             position: relative; /* لتمكين زر التحديث العائم */
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center; /* جعل الأزرار تكون في المنتصف */
             justify-content: flex-start;
         }
 
         .buttons {
             display: flex;
+            flex-wrap: wrap; /* السماح للأزرار بالانتقال لأسطر جديدة */
+            justify-content: center; /* محاذاة الأزرار في المنتصف */
+            gap: 10px; /* مسافة بين الأزرار */
+            margin: 20px 0;
+            padding: 10px 20px;
             width: 100%;
-            justify-content: flex-start; /* ترتيب الأزرار من الشمال إلى اليمين */
-            gap: 5px; /* مسافة صغيرة بين الأزرار */
-            margin: 0;
-            padding: 5px; /* مسافة داخلية للأزرار */
-            overflow-x: auto; /* إضافة شريط تمرير أفقي */
-            white-space: nowrap; /* منع الأزرار من الانتقال لأسطر جديدة */
+            box-sizing: border-box;
         }
 
         .button {
             background-color: #3498db;
             color: white;
-            padding: 10px 15px;
+            padding: 12px 20px;
             text-align: center;
             border: none;
             cursor: pointer;
             font-size: 16px;
-            flex: 1 0 150px; /* يجعل الأزرار تأخذ المساحة المتاحة ولكن بحد أدنى */
-            min-width: 120px; /* الحد الأدنى لعرض الزر */
-            max-width: 180px; /* الحد الأقصى لعرض الزر */
-            box-sizing: border-box; /* لضمان أخذ الأزرار المساحة المحددة بشكل صحيح */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            min-width: 150px; /* الحد الأدنى لعرض الزر */
+            max-width: 200px; /* الحد الأقصى لعرض الزر */
         }
 
         .button:hover {
             background-color: #2980b9;
+            transform: scale(1.05); /* تأثير تكبير بسيط عند التمرير */
         }
 
         .refresh-button {
             background-color: #e74c3c;
             color: white;
-            padding: 10px 15px;
+            padding: 12px 20px;
             font-size: 16px;
             border: none;
             cursor: pointer;
             position: absolute; /* عائم */
-            top: 55px; /* تحت الأزرار مباشرة */
+            top: 20px; /* تحت الأزرار مباشرة */
             right: 10px; /* عائم في الجهة اليمنى */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         .refresh-button:hover {
@@ -71,13 +74,16 @@
         .iframe-container {
             width: 100%;
             flex: 1;
-            margin-top: 10px; /* مسافة بسيطة فوق الفريم */
+            margin-top: 20px; /* مسافة بسيطة فوق الفريم */
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: none;
+            border-radius: 8px; /* إضافة حدود دائرية للفريم */
         }
 
         /* استعلامات الوسائط لضبط الأزرار على الهواتف */
@@ -90,6 +96,7 @@
 
             .refresh-button {
                 font-size: 14px; /* تقليل حجم الخط في زر التحديث */
+                padding: 10px 15px;
             }
         }
     </style>
