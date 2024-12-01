@@ -4,48 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>Responsive Video Player</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css" integrity="sha512-yexU9hwne3MaLL2PG+YJDhaySS9NWcj6z7MvUDSoMhwNghPgXgcvYgVhfj4FMYpPh1Of7bt8/RK5A0rQ9fPMOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Video Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css" integrity="sha512-yexU9hwne3MaLL2PG+YJDhaySS9NWcj6z7MvUDSoMhwNghPgXgcvYgVhfj4FMYpPh1Of7bt8/RK5A0rQ9fPMOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background: #000;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            width: 100vw;
             overflow: hidden;
         }
-
         video {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            background: #000;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
-    <video id="video-player" controls></video>
+    <video id="video-player" controls autoplay></video>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/8.0.0-beta.3/hls.min.js" integrity="sha512-9joJq7hJ0aa9QUCNP/Vef0Lg9U/Z0Xp1tV354wuL/5Snnz9mGSYj4QUZHunqrCay4kU8YpyKSxNsWp5iHPVQHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js" integrity="sha512-vONptKEoKbP1gaC5UkbYDa9OPr04ur4bxaaqT7DAJxGHB2oogtseCPrl5e5hPFokGYotlGNV4d+GM593ka7iNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.0/hls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js"></script>
     <script>
-        const videoSrc = new URLSearchParams(window.location.search).get('src');
+        const videoSrc = new URLSearchParams(window.location.search).get('src') || 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
         const video = document.getElementById('video-player');
 
         if (Hls.isSupported()) {
             const hls = new Hls();
             hls.loadSource(videoSrc);
             hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
             video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
         }
 
-        const player = new Plyr(video);
+        // Optional: Enhance with Plyr
+        const player = new Plyr(video, { controls: ['play', 'progress', 'fullscreen', 'mute'] });
     </script>
 </body>
 </html>
