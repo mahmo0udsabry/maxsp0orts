@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>Video Player</title>
+    <title>Responsive Video Player</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css" integrity="sha512-yexU9hwne3MaLL2PG+YJDhaySS9NWcj6z7MvUDSoMhwNghPgXgcvYgVhfj4FMYpPh1Of7bt8/RK5A0rQ9fPMOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
@@ -17,11 +17,20 @@
         }
 
         video {
-            width: 80%;
-            max-width: 800px;
+            width: 90%; /* عرض الفيديو 90% من عرض الشاشة */
+            max-width: 800px; /* أقصى عرض 800px */
             border: 2px solid #ddd;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            video {
+                width: 100%; /* يجعل الفيديو يغطي العرض بالكامل على الشاشات الصغيرة */
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
         }
     </style>
 </head>
