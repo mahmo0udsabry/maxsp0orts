@@ -46,10 +46,16 @@
         const urlParams = new URLSearchParams(window.location.search);
         const videoSrc = urlParams.get('src');
 
-        // تعيين رابط الفيديو إلى مشغل الفيديو
+        // معالجة الرابط وتعيينه للمشغل
         if (videoSrc) {
-            document.getElementById('video-source').src = videoSrc;
-            document.getElementById('my-video').load();
+            try {
+                const decodedSrc = decodeURIComponent(videoSrc); // فك تشفير الرابط إذا كان مشفرًا
+                document.getElementById('video-source').src = decodedSrc;
+                document.getElementById('my-video').load();
+            } catch (error) {
+                alert("حدث خطأ أثناء معالجة الرابط.");
+                console.error(error);
+            }
         } else {
             alert("يرجى توفير رابط الفيديو باستخدام المعلمة 'src' في URL.");
         }
