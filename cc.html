@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Dynamic Clappr Player</title>
+    <script src="https://cdn.jsdelivr.xyz/npm/@clappr/player@0.4.0/dist/clappr.min.js"></script>
+    <script src="https://cdn.jsdelivr.xyz/npm/level-selector@latest/dist/level-selector.min.js"></script>
+    <script src="https://cdn.jsdelivr.xyz/npm/clappr-chromecast-plugin@latest/dist/clappr-chromecast-plugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.xyz/npm/clappr-pip@latest/dist/clappr-pip.min.js"></script>
+    <script src="https://cdn.jsdelivr.xyz/npm/clappr-playback-rate-plugin@latest/dist/clappr-playback-rate-plugin.min.js"></script>
+</head>
+<body style="margin: 0; padding: 0; background-color: #000;">
+    <div id="Player" style="width: 100%; height: 100vh;"></div>
+    <script>
+        // استخرج الرابط من معلمة src
+        const params = new URLSearchParams(window.location.search);
+        const videoSrc = params.get('src');
+
+        if (videoSrc) {
+            var player = new Clappr.Player({
+                source: videoSrc,
+                mimeType: 'application/x-mpegURL',
+                height: '100%',
+                width: '100%',
+                autoPlay: true,
+                plugins: [
+                    LevelSelector,
+                    ChromecastPlugin,
+                    ClapprPip.PipButton,
+                    ClapprPip.PipPlugin,
+                    Clappr.MediaControl,
+                ],
+                events: {
+                    onReady: function () {
+                        var plugin = this.getPlugin('click_to_pause');
+                        plugin && plugin.disable();
+                    },
+                },
+                chromecast: {
+                    appId: '9DFB77C0',
+                    contentType: 'video/mp4',
+                },
+                shakaConfiguration: {
+                    preferredAudioLanguage: 'EN',
+                },
+                parentId: '#Player',
+            });
+        } else {
+            document.getElementById('Player').innerHTML =
+                '<p style="color: white; text-align: center; font-size: 20px; margin-top: 20px;">No video source provided in URL.</p>';
+        }
+    </script>
+</body>
+</html>
