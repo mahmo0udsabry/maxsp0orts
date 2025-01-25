@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fullscreen Video Player</title>
+  <title>Responsive Video Player</title>
   <style>
-    /* إزالة الهوامش ومسافات الصفحة */
+    /* إزالة هوامش الصفحة */
     body {
       margin: 0;
       padding: 0;
       overflow: hidden;
+      background-color: #000;
     }
-    /* إعداد iframe ليملأ كامل الصفحة */
+
+    /* iframe يملأ الشاشة بالكامل */
     iframe {
       position: absolute;
       top: 0;
@@ -20,10 +22,18 @@
       height: 100%;
       border: none;
     }
+
+    /* ضمان التوافق مع الأجهزة الصغيرة */
+    @media (max-width: 600px) {
+      iframe {
+        width: 100%;
+        height: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- تضمين iframe بدون هوامش لملء الشاشة -->
+  <!-- تضمين الفيديو -->
   <iframe 
     src="https://es.xtratime.top/hembedplayer/fwqwqq/4/500/400" 
     sandbox="allow-same-origin allow-scripts">
