@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <title>مشغل الفيديو</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<video autoplay controls id="video" referrerpolicy="strict-origin" preload="metadata" poster="https://i.ibb.co/X8yLpf7/Picsart-24-08-08-14-57-42-225.png">  <source id="video-source" type="application/x-mpegURL">
+  متصفحك لا يدعم تشغيل الفيديو.</video>
+
+
+
+
+<script>
+   function getVideoSrc() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('src');
+  }
+    
+        var video = document.getElementById('video');
+        var videoUrl = getVideoSrc();
+
+        if(Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(videoUrl);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
+        }
+
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoUrl;
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+        }
+
+</script>
+
+</body>
+</html>
+
