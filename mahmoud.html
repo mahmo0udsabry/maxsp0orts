@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name='referrer' content='no-referrer'>
+    <meta content='noindex, nofollow, noarchive' name='robots'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل الفيديو</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clappr/0.4.7/clappr.min.js"></script>
+    <script src="https://cdn.statically.io/gh/clappr/clappr-level-selector-plugin/master/dist/level-selector.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background: black;
+        }
+        #player_m {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="player_m"></div>
+    <script>
+        function getUrlVars() {
+            var vars = {};
+            window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+
+        var link = getUrlVars()["src"];
+        if (link) {
+            var player = new Clappr.Player({
+                source: link,
+                width: '100%',
+                height: '100%',
+                autoPlay: false,
+                plugins: [LevelSelector],
+                mimeType: "application/x-mpegURL",
+                mediacontrol: {seekbar: "#eee", buttons: "#eee"},
+                parentId: "#player_m"
+            });
+        } else {
+            document.getElementById("player_m").innerHTML = "<p style='color:white; text-align:center; padding-top:20%; font-size:20px;'>لم يتم العثور على رابط الفيديو</p>";
+        }
+    </script>
+</body>
+</html>
