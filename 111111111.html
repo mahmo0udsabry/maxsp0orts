@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل الفيديو</title>
+    <title>مشغل الفيديو بدون إعلانات</title>
     <style>
         body, html {
             margin: 0;
@@ -19,6 +19,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
         iframe {
             width: 100%;
@@ -29,12 +30,27 @@
 </head>
 <body>
     <div class="container">
-        <iframe src="https://laceaccept.net/embed/cgm2zyys" 
+        <iframe id="videoFrame" src="https://laceaccept.net/embed/cgm2zyys" 
                 allowfullscreen="true" 
                 sandbox="allow-same-origin allow-scripts" 
                 scrolling="no" 
                 seamless>
         </iframe>
     </div>
+
+    <script>
+        // حظر جميع النوافذ المنبثقة والإعلانات
+        const iframe = document.getElementById('videoFrame');
+
+        iframe.onload = function () {
+            let iframeDoc = iframe.contentWindow.document;
+
+            // حذف الإعلانات تلقائيًا بعد تحميل الصفحة
+            setInterval(() => {
+                let ads = iframeDoc.querySelectorAll('iframe, .ad, .ads, [id^="ad"], [class*="ad"], [href*="ad"]');
+                ads.forEach(ad => ad.remove());
+            }, 1000); // تكرار الفحص كل ثانية
+        };
+    </script>
 </body>
 </html>
